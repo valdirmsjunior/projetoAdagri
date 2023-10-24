@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+  # image project
+  app:
+      build:
+          context: .
+          dockerfile: Dockerfile
+      restart: unless-stopped
+      working_dir: /var/www/
+      volumes:
+          - ./:/var/www
+      depends_on:
+          - redis
+      networks:
+          - projeto-adagri
+
+  # nginx
+  nginx:
+      image: nginx:alpine
+      restart: unless-stopped
+      ports:
+          - "8989:80"
+      volumes:
+          - ./:/var/www
+          - ./docker/nginx/:/etc/nginx/conf.d/
+      networks:
+          - projeto-adagri
+
+  # db postgres
+  db:
+      image: 'postgres:16'
+      container_name: postgres-db
+      restart: always
+      environment:
+          POSTGRES_USER: ${DB_USERNAME}
+          POSTGRES_PASSWORD: ${DB_PASSWORD}
+          POSTGRES_DB: ${DB_DATABASE}
+          POSTGRES_HOST_AUTH_METHOD: trust
+      volumes:
+          - ./.docker/postgres/dbdata:/var/lib/postgres/data
+      ports:
+          - "5433:5432"
+      networks:
+          - projeto-adagri
+
+  # queue
+  queue:
+      image: especializati/laravel9-app
+      restart: unless-stopped
+      command: "php artisan queue:work"
+      volumes:
+          - ./:/var/www
+      depends_on:
+          - redis
+          - app
+      networks:
+          - projeto-adagri
+
+  # redis
+  redis:
+      image: redis:latest
+      networks:
+          - projeto-adagri
+
+networks:
+    projeto-adagri:
+        driver: bridge
