@@ -54,8 +54,14 @@ class Vaga extends Model
      */
     protected $fillable = [
         'vaga',
+        'tipo_contrato_id',
         'quantidade_vagas',
-        'tipo_contrato'
+        'status'
     ];
+
+    public function tipo_contratos()
+    {
+        return $this->belongsTo(TipoContrato::class);
+    }
 
 }

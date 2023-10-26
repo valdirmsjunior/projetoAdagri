@@ -6,9 +6,14 @@ use App\Models\TipoContrato;
 
 class TipoContratoRepository 
 {
-    protected $model = TipoContrato::class;
+    protected $model;
 
-    public function selecteOption()
+    public function __construct(TipoContrato $model)
+    {
+        $this->model = $model;
+    }
+
+    public function selectOption()
     {
         try {
             return $this->model

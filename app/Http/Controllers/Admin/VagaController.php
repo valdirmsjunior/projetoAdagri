@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\TipoContratoRepository;
 use App\Repositories\VagaRepository;
 use Illuminate\Http\Request;
 
 class VagaController extends Controller
 {
     public function __construct(
-        VagaRepository $vagaRepository
+        VagaRepository $vagaRepository,
+        TipoContratoRepository $tipoContratoRepository
     )
     {
         $this->vagaRepository = $vagaRepository;
+        $this->tipoContratoRepository = $tipoContratoRepository;
     }
 
     public function index(Request $request)
@@ -29,7 +32,9 @@ class VagaController extends Controller
 
     public function create()
     {
-        return view('admin.vagas.create');
+        return view('admin.vagas.create', [
+            'tipo_contratos' => $this->tipoContratoRepository->selectOption()
+        ]);
     }
 
     public function store(Request $request)
