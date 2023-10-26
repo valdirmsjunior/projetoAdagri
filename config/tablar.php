@@ -147,20 +147,25 @@ return [
         [
             'text' => 'Home',
             'icon' => 'ti ti-home',
-            'url' => '#'
+            'url' => 'home'
         ],
         [
-            'text' => 'Support',
-            'url' => '#',
-            'icon' => 'ti ti-help',
-            'submenu' => [
-                [
-                    'text' => 'Ticket',
-                    'url' => '#',
-                    'icon' => 'ti ti-article'
-                ]
-            ],
+            'text' => 'Vagas',
+            'route' => 'admin.vagas.index',
+            'icon' => 'ti ti-receipt'
         ],
+        // [
+        //     'text' => 'Support',
+        //     'url' => '#',
+        //     'icon' => 'ti ti-help',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Ticket',
+        //             'url' => '#',
+        //             'icon' => 'ti ti-article'
+        //         ]
+        //     ],
+        // ],
 
     ],
 
