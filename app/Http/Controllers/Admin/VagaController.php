@@ -3,13 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\VagaRepository;
 use Illuminate\Http\Request;
 
 class VagaController extends Controller
 {
+    public function __construct(
+        VagaRepository $vagaRepository
+    )
+    {
+        $this->vagaRepository = $vagaRepository;
+    }
+
     public function index(Request $request)
     {
-        return view('admin.vagas.index');
+        if (count($request->all()) > 0) {
+            $vagas = $this->vagaRepository->paginateWhere(10, 'vaga', 'ASC', $request->except(['_token', 'page']));
+        } else {
+            $vagas = $this->vagaRepository->paginate(10, 'vaga'); 
+        }
+        return view('admin.vagas.index', [
+            'vagas' => $vagas
+        ]);
     }
 
     public function create()
@@ -18,7 +33,17 @@ class VagaController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {// dd($request->all());
+        $result = $this->vagaRepository->store($request->except(['_token']));
+
+        if ($result === true) {
+            flash('Vaga cadastrada com sucesso!')->success();
+
+            return redirect()->route('admin.vagas.create');
+        }
+
+        flash('Erro ao cadastrar a vaga! '.$result)->error();
+
         return redirect()->route('admin.vagas.create');
     }
 }

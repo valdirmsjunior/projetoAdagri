@@ -9,7 +9,7 @@
 ])
 
 @if ($method == 'GET' || $method == 'POST')
-    {!!
+    {!! 
         Form::open([
             'url' => $action,
             'class' => '',

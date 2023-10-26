@@ -20,7 +20,7 @@
                     title="Vagas"
                     subtitle="Novo"
                     :action="route('admin.vagas.store')"
-                    method="post"
+                    method="POST"
                     :routeBack="route('admin.vagas.index')"
                 >
                     @include('admin.vagas.partials.form')

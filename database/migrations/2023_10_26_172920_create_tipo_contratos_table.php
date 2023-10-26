@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vagas', function (Blueprint $table) {
+        Schema::create('tipo_contratos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('vaga');
-            $table->foreignUuid('tipo_contrato_id')->references('id')->on('tipo_contratos')->onUpdate('cascade');
-            $table->integer('quantidade_vagas')->nullable();
-            $table->integer('tipo_contrato')->unique();
-            $table->string('status')->nullable();
+            $table->integer('codigo')->unique();
+            $table->string('nome');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vagas');
+        Schema::dropIfExists('tipo_contratos');
     }
 };

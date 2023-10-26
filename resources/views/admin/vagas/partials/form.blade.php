@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <x-form-label for="tipo_contrato_id" class="form-label" name="Tipo Contrato" required />
         {!!
-            Form::text('tipo_contrato_id', old('tipo_contrato_id', isset($vaga) ? $vaga->vagas : ''), [
+            Form::select('tipo_contrato_id',$tipo old('tipo_contrato_id', isset($vaga) ? $vaga->vagas : ''), [
                 'id' => 'name',
                 'class' => 'form-control '.($errors->has('tipo_contrato_id') ? 'is-invalid' : '')
             ])
