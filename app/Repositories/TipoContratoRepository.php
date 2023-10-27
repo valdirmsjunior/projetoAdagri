@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TipoContrato;
+use Exception;
 
 class TipoContratoRepository 
 {
