@@ -1,13 +1,13 @@
 <div class="mb-3 row">
     <div class="col-md-4">
-        <x-form-label for="name" class="form-label" name="Vaga" required />
+        <x-form-label for="vaga" class="form-label" name="Vaga" required />
         {!!
-            Form::text('name', old('name', isset($vagas) ? $vagas->vaga : ''), [
-                'id' => 'name',
-                'class' => 'form-control '.($errors->has('name') ? 'is-invalid' : '')
+            Form::text('vaga', old('vaga', isset($vagas) ? $vagas->vaga : ''), [
+                'id' => 'vaga',
+                'class' => 'form-control '.($errors->has('vaga') ? 'is-invalid' : '')
             ])
         !!}
-        <x-form-error :message="$errors->first('name')" />
+        <x-form-error :message="$errors->first('vaga')" />
     </div>
 
     <div class="col-md-4">
@@ -22,13 +22,13 @@
     </div>
 
     <div class="col-md-4">
-        <x-form-label for="qtd_vagas" class="form-label" name="Quantidade de Vagas" required />
+        <x-form-label for="quantidade_vagas" class="form-label" name="Quantidade de Vagas" required />
         {!!
-            Form::text('qtd_vagas', old('qtd_vagas', isset($vagas) ? $vagas->quantidade_vagas : ''), [
-                'id' => 'qtd_vagas',
-                'class' => 'form-control '.($errors->has('qtd_vagas') ? 'is-invalid' : '')
+            Form::text('quantidade_vagas', old('quantidade_vagas', isset($vagas) ? $vagas->quantidade_vagas : ''), [
+                'id' => 'quantidade_vagas',
+                'class' => 'form-control '.($errors->has('quantidade_vagas') ? 'is-invalid' : '')
             ])
         !!}
-        <x-form-error :message="$errors->first('qtd_vagas')" />
+        <x-form-error :message="$errors->first('quantidade_vagas')" />
     </div>
 </div>

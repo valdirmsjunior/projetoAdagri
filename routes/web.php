@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'App\Http\Con
     Route::get('/vagas', 'Admin\VagaController@index')->name('admin.vagas.index');
     Route::get('/cadastro-vagas', 'Admin\VagaController@create')->name('admin.vagas.create');
     Route::post('/', 'Admin\VagaController@store')->name('admin.vagas.store');
+    Route::get('/{vaga}/edicao', 'Admin\VagaController@edit')->name('admin.vagas.edit');
+    Route::put('/{vaga}', 'Admin\VagaController@update')->name('admin.vagas.update');
 });
 
 

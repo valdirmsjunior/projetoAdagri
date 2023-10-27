@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Vaga;
 use App\Repositories\TipoContratoRepository;
 use App\Repositories\VagaRepository;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class VagaController extends Controller
     }
 
     public function store(Request $request)
-    {// dd($request->all());
+    {
         $result = $this->vagaRepository->store($request->except(['_token']));
 
         if ($result === true) {
@@ -50,5 +51,30 @@ class VagaController extends Controller
         flash('Erro ao cadastrar a vaga! '.$result)->error();
 
         return redirect()->route('admin.vagas.create');
+    }
+
+    public function edit(Vaga $vaga)
+    {
+        return view('admin.vagas.edit', [
+            'vagas' => $vaga,
+            'tipo_contratos' => $this->tipoContratoRepository->selectOption()
+        ]);
+    }
+
+    public function update(Request $request, Vaga $vaga)
+    {
+        $result = $this->vagaRepository->update($vaga, $request->except(['_token']));
+
+        if ($result === true) {
+            flash('Vaga atualizada com sucesso!')->success();
+
+            return redirect()->route('admin.vagas.index');
+        }
+
+        flash('Erro ao atualizar a vaga! '.$result)->error();
+
+        return redirect()->route('admin.vagas.edit', [
+            'vaga' => $vaga
+        ]);
     }
 }

@@ -59,7 +59,7 @@ class Vaga extends Model
         'status'
     ];
 
-    public function tipo_contratos()
+    public function tipoContrato()
     {
         return $this->belongsTo(TipoContrato::class);
     }

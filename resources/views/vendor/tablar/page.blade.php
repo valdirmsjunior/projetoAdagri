@@ -16,6 +16,7 @@
         @include('tablar::partials.navbar.nav')
         <div class="page-wrapper">
             <!-- Page body -->
+            @include('flash::message')
             @yield('content')
             @include('tablar::partials.footer.bottom')
         </div>

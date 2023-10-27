@@ -24,17 +24,37 @@ class VagaRepository
         try {
             $query = $this->model->query();
             $query->select('vagas.*');
-            $query->join('tipo_contratos', 'tipo_contratos.id', '=', 'vagas.tipo_contratos_id');
+            $query->join('tipo_contratos', 'tipo_contratos.id', '=', 'vagas.tipo_contrato_id');
             $query->orderBy($orderBy, $sort);
-    
+            //"<print_r>". dd($query->paginate()) ."</print_r>";
             return $query->paginate($paginate);
         } catch (Exception $e) {
             return [];
         }
     }
 
+    public function paginateWhere($paginate = 10, $orderBy, $sort = 'ASC', $columns = null)
+    {
+        try {
+            $query = $this->model->query();
+            $query->select('vagas.*');
+            $query->join('tipo_contratos', 'tipo_contratos.id', '=', 'vagas.tipo_contratos_id');
+            $query->orderBy($orderBy, $sort);
+
+            if (count($columns) > 0) {
+                if (isset($columns['tipo_contratos_id'])) {
+                    $query->where('tipo_contratos_id', $columns['tipo_contratos_id']);
+                }
+            }
+    
+            return $query->orderBy($orderBy, $sort)->paginate($paginate);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+
     public function store($data)
-    { dd($data); 
+    { 
         try {
             DB::beginTransaction();
 
@@ -47,6 +67,18 @@ class VagaRepository
         } catch (Exception $e) {
             DB::rollBack();
 
+            return $e->getMessage();
+        }
+    }
+
+    public function update(Vaga $vaga, $data)
+    {
+        try {
+            $vaga->fill($data);
+            $vaga->save();
+
+            return true;
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
