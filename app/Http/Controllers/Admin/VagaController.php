@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreVagaRequest;
 use App\Models\Vaga;
 use App\Repositories\TipoContratoRepository;
 use App\Repositories\VagaRepository;
@@ -38,7 +39,7 @@ class VagaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreVagaRequest $request)
     {
         $result = $this->vagaRepository->store($request->except(['_token']));
 
