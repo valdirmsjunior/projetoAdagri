@@ -6,7 +6,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col">                    
                     <h2 class="page-title">
-                        CADASTRO DE VAGAS
+                        EDITAR VAGA
                     </h2>
                 </div>
             </div>
@@ -18,9 +18,9 @@
             <div class="col-lg-12">
                 <x-form
                     title="Vagas"
-                    subtitle="Novo"
-                    :action="route('admin.vagas.store')"
-                    method="POST"
+                    subtitle="Edição"
+                    :action="route('admin.vagas.update', $vagas)"
+                    method="PUT"
                     :routeBack="route('admin.vagas.index')"
                 >
                     @include('admin.vagas.partials.form')
@@ -28,4 +28,5 @@
             </div>
         </div>
     </div>
+    
 @endsection

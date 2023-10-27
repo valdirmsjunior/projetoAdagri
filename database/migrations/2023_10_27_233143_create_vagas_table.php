@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('vagas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('vaga');
+            $table->foreignUuid('tipo_contrato_id')->references('id')->on('tipo_contratos')->onUpdate('cascade');
             $table->integer('quantidade_vagas')->nullable();
-            $table->integer('tipo_contrato')->unique();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
